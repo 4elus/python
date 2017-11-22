@@ -1,5 +1,13 @@
 import random
 
+def start():
+	a = int(input("Enter number: "))
+	b = int(input("Enter number: "))
+	
+	n = generate_keypair(a,b)
+	
+	return n
+
 def isprime(n):
     if n == 1:
         return False
@@ -17,23 +25,29 @@ def gcd(a,b):
 			b %= a
 	return a + b		
 		
+def multiplicative_inverse(a,b):
+	if b == 0:
+		return a
+	else:
+		d = multiplicative_inverse(b,a % b)
+	return a // b
 	
 		
 def generate_keypair(p, q):
-	cycle_var = False
-	
-	while cycle_var != True:
-		if not (isprime(p) and isprime(q)):
-			raise ValueError("'Both numbers must be prime.")
-		elif p == q:
-			raise ValueError('p and q cannot be equal')
-		else:
-			print("These numbers are prime")
-			cycle_var = True
+
+	if not (isprime(p) and isprime(q)):
+		print("'Both numbers must be prime.")
+		start()
+	elif p == q:
+		print('p and q cannot be equal')
+		start()
+	else:
+		print("These numbers are prime")
+		
 			
 	n = p * q
 		
-	phi = (p - 1)  (q - 1)
+	phi = (p - 1)*(q - 1)
 		
 	e = random.randrange(1, phi)
 		
@@ -41,7 +55,9 @@ def generate_keypair(p, q):
 		
 	while g != 1:
 		e = random.randrange(1, phi)
-        g = gcd(e, phi)
+		g = gcd(e, phi)
+		
+		
 			
 			
 	d = multiplicative_inverse(e, phi)
@@ -49,20 +65,4 @@ def generate_keypair(p, q):
 	return ((e, n), (d, n))
 
 
-
-	
-	
-	
-n = generate_keypair(5,7)			
-			
-
-
-			
-	
-		
-		
-		
-		
-	
-			
-		
+print(start())				
